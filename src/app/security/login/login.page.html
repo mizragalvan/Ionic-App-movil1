@@ -1,0 +1,221 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content> -->
+
+<ion-app>
+  <ion-content fullscreen>
+    <div class="background-image"></div>
+    <div class="login-container">
+      <ion-card *ngIf="mostrarInicio">
+        <ion-card-header>
+          <ion-card-title>Iniciar Sesión</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-item>
+            <ion-icon slot="start" name="person"></ion-icon>
+            <ion-input 
+              type="text" 
+              [(ngModel)]="usuario" 
+              name="ctrlUsuario" 
+              #ctrlUsuario="ngModel" 
+              required 
+              maxlength="50" 
+              placeholder="Usuario..." 
+              (keyup.enter)="siguiente(ctrlpassword)">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon slot="start" name="lock-closed"></ion-icon>
+            <ion-input 
+              type="password" 
+              [(ngModel)]="password" 
+              name="ctrlpassword" 
+              #ctrlpassword="ngModel" 
+              required 
+              maxlength="30" 
+              placeholder="Contraseña..." 
+              (keyup.enter)="siguiente(ctrlUsuario)">
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" class="login-button">Iniciar Sesión</ion-button>
+<br>
+
+<div class="div-link">
+  <ion-text color="primary">
+    <a (click)="mostrarFrmContrasena()">¿Olvidó su Contraseña?</a>
+  </ion-text>
+</div>
+        </ion-card-content>
+      </ion-card>
+      <div *ngIf="!mostrarInicio">
+        <form #frmEmail="ngForm" novalidate>
+          <ion-card class="card-login">
+            <ion-card-header class="card-header-gerdau text-center">
+              <h4 class="card-title">Recuperación de Contraseña</h4>
+            </ion-card-header>
+
+            <ion-card-content>
+              <div class="d-flex justify-content-center">
+                <ion-text>
+                  Ingresa tu email y haz clic en enviar, el sistema te enviará un correo con la información de la recuperación.
+                </ion-text>
+              </div>
+              
+              <ion-item>
+                <ion-icon slot="start" name="mail"></ion-icon>
+                <ion-input 
+                  type="text" 
+                  [(ngModel)]="email" 
+                  name="ctrlCorreo" 
+                  #ctrlCorreo="ngModel" 
+                  required 
+                  maxlength="80" 
+                  placeholder="Email" 
+                  pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+                  (keyup.enter)="confirmarRecuperacion(frmEmail)">
+                </ion-input>
+              </ion-item>
+
+              <div *ngIf="ctrlCorreo.errors && (ctrlCorreo.dirty && ctrlCorreo.touched) && ctrlCorreo.invalid" style="color: red;">
+            
+              </div>
+              <ion-button expand="block" class="login-button">Enviar</ion-button>
+            </ion-card-content>
+
+
+            <div class="div-link">
+              <ion-text color="primary">
+                <a (click)="mostrarFrmContrasena()">Iniciar Sesión</a>
+              </ion-text>
+            </div>
+          </ion-card>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-app>
+
+
+
+<!-- <ion-content>
+  <div class="wrapper wrapper-full-page">
+    <div class="page-header login-page" 
+      filter-color="info" 
+      style="background-image: url('./assets/img/caja2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: top center;">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+
+           
+            <div *ngIf="mostrarInicio">
+              <form (ngSubmit)="onSignin(f)" #f="ngForm" novalidate>
+                <ion-card class="card-login">
+                  <ion-card-header class="card-header-gerdau text-center">
+                    <h4 class="card-title">Inicia sesión</h4>
+                  </ion-card-header>
+
+                  <ion-card-content>
+                    <ion-item>
+                      <ion-icon slot="start" name="person"></ion-icon>
+                      <ion-input 
+                        type="text" 
+                        [(ngModel)]="usuario" 
+                        name="ctrlUsuario" 
+                        #ctrlUsuario="ngModel" 
+                        required 
+                        maxlength="50" 
+                        placeholder="Usuario..." 
+                        (keyup.enter)="siguiente(ctrlpassword)">
+                      </ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-icon slot="start" name="lock-closed"></ion-icon>
+                      <ion-input 
+                        type="password" 
+                        [(ngModel)]="password" 
+                        name="ctrlpassword" 
+                        #ctrlpassword="ngModel" 
+                        required 
+                        maxlength="30" 
+                        placeholder="Contraseña..." 
+                        (keyup.enter)="siguiente(ctrlUsuario)">
+                      </ion-input>
+                    </ion-item>
+                  </ion-card-content>
+
+
+                  <div class="div-link">
+                    <ion-text color="primary">
+                      <a (click)="mostrarFrmContrasena()">¿Olvidó su Contraseña?</a>
+                    </ion-text>
+                  </div>
+                </ion-card>
+              </form>
+            </div>
+
+           
+            <div *ngIf="!mostrarInicio">
+              <form #frmEmail="ngForm" novalidate>
+                <ion-card class="card-login">
+                  <ion-card-header class="card-header-gerdau text-center">
+                    <h4 class="card-title">Recuperación de Contraseña</h4>
+                  </ion-card-header>
+
+                  <ion-card-content>
+                    <div class="d-flex justify-content-center">
+                      <ion-text>
+                        Ingresa tu email y haz clic en enviar, el sistema te enviará un correo con la información de la recuperación.
+                      </ion-text>
+                    </div>
+                    
+                    <ion-item>
+                      <ion-icon slot="start" name="mail"></ion-icon>
+                      <ion-input 
+                        type="text" 
+                        [(ngModel)]="email" 
+                        name="ctrlCorreo" 
+                        #ctrlCorreo="ngModel" 
+                        required 
+                        maxlength="80" 
+                        placeholder="Email" 
+                        pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+                        (keyup.enter)="confirmarRecuperacion(frmEmail)">
+                      </ion-input>
+                    </ion-item>
+
+                    <div *ngIf="ctrlCorreo.errors && (ctrlCorreo.dirty && ctrlCorreo.touched) && ctrlCorreo.invalid" style="color: red;">
+                  
+                    </div>
+                  </ion-card-content>
+
+
+                  <div class="div-link">
+                    <ion-text color="primary">
+                      <a (click)="mostrarFrmContrasena()">Iniciar Sesión</a>
+                    </ion-text>
+                  </div>
+                </ion-card>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content> -->
+
